@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/ckform.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+</head>
+
+<body>
+<div class="definewidth m20">
+    <table class="table table-bordered table-hover m10">
+        <tr>
+            <td class="tableleft">商品类别</td>
+            <td><input type="text" id="className"/></td>
+        </tr>
+
+        <tr>
+            <td class="tableleft">消费对象</td>
+            <td><input type="text" id="object"/></td>
+        </tr>
+
+        <tr>
+            <td class="tableleft">竞争对手</td>
+            <td><input type="text" id="rival"/></td>
+        </tr>
+
+        <tr>
+            <td class="tableleft">传播手段</td>
+            <td><input type="text" id="means"/></td>
+        </tr>
+
+        <tr>
+            <td class="tableleft"></td>
+            <td>
+                <button class="btn btn-primary" type="button" id="insert">保存</button> &nbsp;&nbsp;
+                <button type="button" class="btn btn-success" name="back" id="back">返回列表</button>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+
+<script>
+    //自动加载函数
+    $(function () {
+        getupdateGoods();
+    });
+
+
+    //获取需要更新的数据
+    function getupdateGoods() {
+        let classes = JSON.parse(window.localStorage.getItem("updateClasses"));
+        if (classes != null) {
+            $("#className").val(classes.className);
+            $("#object").val(classes.object);
+            $("#rival").val(classes.rival);
+            $("#means").val(classes.means);
+        }
+    }
+
+    //保存修改
+    $('#insert').click(function () {
+        let classes = JSON.parse(window.localStorage.getItem("updateClasses"));
+        let links = classes._links.self.href.substring(35);
+        let data = {
+            id: links,
+            className: $("#className").val(),
+            object: $("#object").val(),
+            rival: $("#rival").val(),
+            means: $("#means").val(),
+        };
+        $.ajax({
+            url: "http://localhost:8080/goodsClasses",
+            type: "post",
+            async: false,
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (data) {
+                window.location.href = "index.html";
+            },
+            error: function () {
+                alert("更新失败,请重试");
+            },
+        })
+    });
+
+    // 返回列表
+    $('#back').click(function () {
+        window.location.href = "index.html";
+    });
+</script>
+</html>

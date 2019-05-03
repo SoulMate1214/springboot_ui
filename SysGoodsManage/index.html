@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/ckform.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+</head>
+
+<body>
+<div class="form-inline definewidth m20">
+    货品名称：
+    <input type="text" name="menuname" id="menuname" class="abc input-default" placeholder="" value="">&nbsp;&nbsp;
+    <button type="submit" class="btn btn-primary" id="findByName">查询</button>&nbsp;&nbsp;
+    <button type="button" class="btn btn-success" id="insert">新增商品</button>
+</div>
+
+<table class="table table-bordered table-hover definewidth m10">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>进货编号</th>
+        <th>货品名称</th>
+        <th>所属类别</th>
+        <th>进货渠道</th>
+        <th>数量</th>
+        <th>单价</th>
+        <th>进货时间</th>
+        <th>入库时间</th>
+        <th>当前状态</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody id="goodsMsg">
+    <tr>
+        <td colspan="11">没有查到相应的数据</td>
+    </tr>
+    </tbody>
+</table>
+<div id="pageNum" class="pagination text-center">
+    <ul>
+
+    </ul>
+</div>
+</body>
+
+<script>
+    //自动加载函数
+    $(function () {
+        setMessage();
+        setTimeout(function () {
+            getMessage();
+        }, 100)
+    });
+
+    //跳转到增加界面
+    $('#insert').click(function () {
+        window.location.href = "add.html";
+    });
+
+    //删除
+    $("body").delegate(".delete", "click", function () {
+        $.ajax({
+            url: "http://127.0.0.1:8080/goodsManages/" + $(this).attr("id"),
+            type: "delete",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                setMessage();
+                setTimeout(function () {
+                    getMessage();
+                }, 100)
+            },
+            error: function () {
+                alert("删除失败,请重试");
+            },
+        })
+    });
+
+    //跳转修改界面
+    $("body").delegate(".update", "click", function () {
+        $.ajax({
+            url: "http://127.0.0.1:8080/goodsManages/" + $(this).attr("id"),
+            type: "get",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                console.log(data);
+                window.localStorage.setItem("updateGoods", JSON.stringify(data));
+                window.location.href = "edit.html";
+            },
+            error: function () {
+                alert("删除失败,请重试");
+            },
+        })
+    });
+
+    //条件查询
+    $('#findByName').click(function () {
+        $.ajax({
+            url: "http://127.0.0.1:8080/goodsManages/search/findByGoodsName",
+            type: "get",
+            dataType: "json",
+            async: true,
+            data: {
+                goodsName: $("#menuname").val(),
+            },
+            success: function (data) {
+                if (data._embedded.goodsManages.length > 0) {
+                    let goodsList = data._embedded.goodsManages;
+                    let tbody = $("#goodsMsg");
+                    let pageNum = $("#pageNum");
+                    pageNum.remove();
+                    tbody.find("tr").remove();
+                    let count = 0;
+                    if (goodsList != null && goodsList.length > 0) {
+                        for (let i = 0; i < goodsList.length; i++) {
+                            count = count + 1;
+                            let links = goodsList[i]._links.self.href.substring(35);
+                            let tr = $("<tr></tr>");
+                            tr.append("<td>" + count + "</td>");
+                            tr.append("<td>" + links + "</td>");
+                            tr.append("<td>" + goodsList[i].goodsName + "</td>");
+                            tr.append("<td>" + goodsList[i].goodsClassId + "</td>");
+                            tr.append("<td>" + goodsList[i].channel + "</td>");
+                            tr.append("<td>" + goodsList[i].number + "</td>");
+                            tr.append("<td>" + goodsList[i].price + "</td>");
+                            tr.append("<td>" + goodsList[i].stockTime + "</td>");
+                            tr.append("<td>" + goodsList[i].putTime + "</td>");
+                            tr.append("<td>" + goodsList[i].states + "</td>");
+                            tr.append("<td class='text-center'><a id='" + links + "' class='btn btn-warning btn-mini update'>修改</a>&nbsp;&nbsp;&nbsp;<a id='" + links + "' class='btn btn-danger btn-mini delete'>删除</a></td>");
+                            tbody.append(tr);
+                        }
+                    }
+                } else {
+                    alert("查询商品信息失败");
+                }
+            },
+            error: function () {
+                alert("查询失败,请重试");
+            },
+        })
+    });
+
+    //查询数据保存到缓存
+    function setMessage() {
+        let url = "http://127.0.0.1:8080/goodsManages?sort=id,desc";
+        $.ajax({
+            url: url,
+            type: "get",
+            dataType: "json",
+            async: true,
+            success: function (data) {
+                if (data._embedded.goodsManages.length > 0) {
+                    window.localStorage.setItem("goodsList", JSON.stringify(data._embedded.goodsManages));
+                    window.localStorage.setItem("goodsListPage", JSON.stringify(data.page));
+                    window.localStorage.setItem("goodsListLink", JSON.stringify(data._links));
+                } else {
+                    alert("获取商品信息失败");
+                }
+            },
+            error: function () {
+                alert("请求失败");
+            },
+        });
+    }
+
+    //缓存数据渲染列表
+    function getMessage() {
+        let goodsList = JSON.parse(window.localStorage.getItem("goodsList"));
+        let goodsListPage = JSON.parse(window.localStorage.getItem("goodsListPage"));
+        let goodsListLink = JSON.parse(window.localStorage.getItem("goodsListLink"));
+
+        //渲染表格
+        let tbody = $("#goodsMsg");
+        tbody.find("tr").remove();
+        let count = 0;
+        if (goodsList != null && goodsList.length > 0) {
+            for (let i = 0; i < goodsList.length; i++) {
+                count = count + 1;
+                let links = goodsList[i]._links.self.href.substring(35);
+                let tr = $("<tr></tr>");
+                tr.append("<td>" + count + "</td>");
+                tr.append("<td>" + links + "</td>");
+                tr.append("<td>" + goodsList[i].goodsName + "</td>");
+                tr.append("<td>" + goodsList[i].goodsClassId + "</td>");
+                tr.append("<td>" + goodsList[i].channel + "</td>");
+                tr.append("<td>" + goodsList[i].number + "</td>");
+                tr.append("<td>" + goodsList[i].price + "</td>");
+                tr.append("<td>" + goodsList[i].stockTime + "</td>");
+                tr.append("<td>" + goodsList[i].putTime + "</td>");
+                tr.append("<td>" + goodsList[i].states + "</td>");
+                tr.append("<td class='text-center'><a id='" + links + "' class='btn btn-warning btn-mini update'>修改</a>&nbsp;&nbsp;&nbsp;<a id='" + links + "' class='btn btn-danger btn-mini delete'>删除</a></td>");
+                tbody.append(tr);
+            }
+        } else {
+            alert("渲染表格失败")
+        }
+
+        //渲染页数
+        let prev = 0;
+        let next = 0;
+        let nowPage = parseInt(goodsListPage.number);
+        let totalPages = goodsListPage.totalPages;
+        if (nowPage > 0) {
+            prev = goodsListLink.prev.href.split("&")[0].substring(40);
+        }
+        if (nowPage != totalPages - 1) {
+            next = goodsListLink.next.href.split("&")[0].substring(40);
+        }
+        let pageNumUl = $("#pageNum ul");
+        pageNumUl.find("li").remove();
+        pageNumUl.append("<li id=\"first\" ><a onclick=\"reloadPage(0)\">首页</a></li>")
+        if (nowPage != 0) {
+            pageNumUl.append("<li id=\"prev\" ><a onclick=\"reloadPage(" + prev + ")\">上一页</a></li>")
+        }
+        if (nowPage >= 3) {
+            pageNumUl.append("<li ><a onclick=\"reloadPage(" + (nowPage - 3) + ")\">...</a></li>")
+        }
+        if (nowPage > 1) {
+            pageNumUl.append("<li ><a onclick=\"reloadPage(" + (nowPage - 2) + ")\">" + (nowPage - 1) + "</a></li>")
+        }
+        if (nowPage > 0) {
+            pageNumUl.append("<li ><a onclick=\"reloadPage(" + (nowPage - 1) + ")\">" + (nowPage) + "</a></li>")
+        }
+        pageNumUl.append("<li class='active' ><a onclick=\"reloadPage(" + nowPage + ")\">" + (nowPage + 1) + "</a></li>")
+        if (totalPages - nowPage - 1 >= 1) {
+            pageNumUl.append("<li ><a onclick=\"reloadPage(" + (nowPage + 1) + ")\">" + (nowPage + 2) + "</a></li>")
+        }
+        if (totalPages - nowPage - 1 >= 2) {
+            pageNumUl.append("<li ><a onclick=\"reloadPage(" + (nowPage + 2) + ")\">" + (nowPage + 3) + "</a></li>")
+        }
+        if (nowPage <= 1 && totalPages >= 5) {
+            pageNumUl.append("<li ><a onclick=\"reloadPage(" + (nowPage + 3) + ")\">" + (nowPage + 4) + "</a></li>")
+        }
+        if (nowPage == 0 && totalPages >= 4) {
+            pageNumUl.append("<li ><a onclick=\"reloadPage(" + (nowPage + 4) + ")\">" + (nowPage + 5) + "</a></li>")
+        }
+        if (totalPages - nowPage - 1 > 2 && totalPages > 5) {
+            pageNumUl.append("<li ><a onclick=\"reloadPage(" + (nowPage + 3) + ")\">...</a></li>")
+        }
+        if (totalPages != nowPage) {
+            pageNumUl.append("<li id=\"next\" ><a onclick=\"reloadPage(" + next + ")\">下一页</a></li>")
+        }
+        pageNumUl.append("<li><a onclick=\"reloadPage(" + (totalPages - 1) + ")\">尾页</a></li>")
+    }
+
+    //查询数据保存到缓存并获取（分页用）
+    function reloadPage(page) {
+        let url = "http://127.0.0.1:8080/goodsManages?page=" + page + "&size=20&sort=id,desc";
+        $.ajax({
+            url: url,
+            type: "get",
+            dataType: "json",
+            async: true,
+            success: function (data) {
+                if (data._embedded.goodsManages.length > 0) {
+                    window.localStorage.setItem("goodsList", JSON.stringify(data._embedded.goodsManages));
+                    window.localStorage.setItem("goodsListPage", JSON.stringify(data.page));
+                    window.localStorage.setItem("goodsListLink", JSON.stringify(data._links));
+                    getMessage();
+                } else {
+                    alert("获取商品信息失败");
+                }
+            },
+            error: function () {
+                alert("请求失败");
+            },
+        });
+    }
+</script>
+</html>

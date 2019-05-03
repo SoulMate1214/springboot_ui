@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>商城管理系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="assets/css/dpl-min.css" rel="stylesheet" type="text/css"/>
+    <link href="assets/css/bui-min.css" rel="stylesheet" type="text/css"/>
+    <link href="assets/css/main-min.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="assets/js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/bui-min.js"></script>
+    <script type="text/javascript" src="assets/js/common/main-min.js"></script>
+    <script type="text/javascript" src="assets/js/config-min.js"></script>
+</head>
+
+<body>
+<div class="content">
+    <div class="dl-main-nav">
+        <div class="dl-inform">
+            <div class="dl-inform-title"><s class="dl-inform-icon dl-up"></s></div>
+        </div>
+        <ul id="J_Nav" class="nav-list ks-clear">
+            <li class="nav-item dl-selected">
+                <div class="nav-item-inner nav-home">商城管理</div>
+            </li>
+            <li class="nav-item dl-selected">
+                <div class="nav-item-inner nav-order">系统管理</div>
+            </li>
+        </ul>
+    </div>
+    <ul id="J_NavContent" class="dl-tab-conten"></ul>
+</div>
+</body>
+
+<script>
+    //导航栏跳转
+    BUI.use('common/main',
+        function () {
+            let config = [{
+                id: '1',
+                menu: [{
+                    text: '商城管理',
+                    items: [{
+                        id: '11',
+                        text: '商品管理',
+                        href: 'SysGoodsManage/index.html'
+                    }, {
+                        id: '12',
+                        text: '商品类别管理',
+                        href: 'SysGoodsClass/index.html'
+                    }]
+                }]
+            }, {
+                id: '2',
+                menu: [{
+                    text: '系统管理',
+                    items: [{
+                        id: '21',
+                        text: '用户管理',
+                        href: 'SysUser/index.html'
+                    }]
+                }]
+            }];
+            new PageUtil.MainPage({
+                modulesConfig: config
+            });
+        });
+</script>
+</html>
