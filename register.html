@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content=""/>
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link href="css/style1.css" rel='stylesheet' type='text/css' media="all">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/awesome.css">
+    <link rel="stylesheet" href="css/custom-style.css">
+</head>
+<body>
+<div class="mid-class" align="center">
+    <div class="art-right-w3ls" style="margin-left: 30%">
+        <h2>注册</h2>
+        <div class="main">
+            <div class="form-left-to-w3l">
+                <div class="col-md-12 input-group" id="email-wrapper">
+                    <input class="form-control" id="email" placeholder="E-mail" type="text" value="">
+                </div>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip" id="email-state-tip">邮箱已注册</span>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip" id="email-format-tip">邮箱为空或格式有误</span>
+            </div>
+
+            <div class="form-left-to-w3l">
+                <div class="col-md-12 input-group" id="username-wrapper">
+                    <input class="form-control" id="username" placeholder="User Name" type="text" value="">
+                </div>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip" id="username-null-tip">用户名不能为空</span>
+            </div>
+            <div class="form-left-to-w3l">
+                <div class="col-md-12 input-group" id="userpwd-wrapper">
+                    <input class="form-control" id="userpwd" placeholder="Password" type="password" value="">
+                </div>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip userpwd-tip" id="userpwd-space-tip">密码中不能存在空格</span>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip userpwd-tip" id="userpwd-length-tip">密码不能少于8位</span>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip userpwd-tip" id="userpwd-simple-tip">密码必须包含字母、数字、特殊符号中的两种</span>
+            </div>
+            <div class="form-left-to-w3l">
+                <div class="col-md-12 input-group" id="repwd-wrapper">
+                    <input class="form-control" id="repwd" placeholder="Password Confirmation" type="password" value="">
+                </div>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip" id="repwd-tip">两次输入的密码不一致</span>
+            </div>
+            <div class="form-left-to-w3l">
+                <div class="col-md-12 input-group" id="create-date-wrapper">
+                    <input class="form-control" id="createdate" type="date" value="">
+                </div>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip" id="create-date-tip">创建日期不能为空</span>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip" id="error-tip">注册失败</span>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label><input name="role" type="radio" value="1"
+                                  checked>普通用户</label>
+                </div>
+                <div class="col-md-6">
+                    <label><input name="role" type="radio"
+                                  value="0">管理员</label>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <button class="form-control btn btn-primary" id="register" style="width: 50%">注册</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr/>
+                    <a href="login.html">
+                        <i class="fas fa-angle-left"></i>
+                        <span>返回登录</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="bottem-wthree-footer">
+    <p>网商 &copy; 2019.xxxxx.</p>
+</footer>
+</body>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/awesome.js"></script>
+<script src="js/register-script.js"></script>
+</html>

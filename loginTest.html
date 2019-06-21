@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理系统</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/login.css"/>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/ckform.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="form-signin">
+        <h2 class="form-signin-heading">登录系统</h2>
+        <input id="username" name="username" class="input-block-level" type="text" placeholder="账号">
+        <input id="password" name="password" class="input-block-level" type="password" placeholder="密码">
+        <p>
+            <button id="login" class="btn btn-large btn-primary">登录</button>
+        </p>
+    </div>
+</div>
+</body>
+
+<script>
+    //登录
+    $('#login').click(function () {
+        $.ajax({
+            url: "http://localhost:8080/login",
+            type: "post",
+            dataType: "json",
+            async: true,
+            data: {
+                name: $("#username").val(),
+                password: $("#password").val(),
+            },
+            success: function (data) {
+                if (data.message == "true") {
+                    window.location.href = "index.html";
+                } else {
+                    window.location.href = "#";
+                    alert("用户名或密码有误,请重新输入");
+                }
+            },
+            error: function () {
+                alert("系统出错,请重试");
+            },
+        })
+    });
+</script>
+</html>
+

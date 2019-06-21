@@ -1,56 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>后台管理系统</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <link rel="stylesheet" type="text/css" href="css/login.css"/>
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/ckform.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-</head>
+    <title>登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content=""/>
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link href="css/style1.css" rel='stylesheet' type='text/css' media="all">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/awesome.css">
+    <link rel="stylesheet" href="css/custom-style.css">
+</head>
 <body>
-<div class="container">
-    <div class="form-signin">
-        <h2 class="form-signin-heading">登录系统</h2>
-        <input id="username" name="username" class="input-block-level" type="text" placeholder="账号">
-        <input id="password" name="password" class="input-block-level" type="password" placeholder="密码">
-        <p>
-            <button id="login" class="btn btn-large btn-primary">登录</button>
-        </p>
+<div class="mid-class" align="center">
+    <div class="art-right-w3ls" style="margin-left: 30%">
+        <h2>登录</h2>
+        <div class="main">
+            <div class="form-left-to-w3l">
+                <div class="col-md-12 input-group" id="email-wrapper">
+                    <input class="form-control" id="username" placeholder="username" type="text" value="">
+                </div>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip" id="email-null-tip">用户名不能为空</span>
+            </div>
+            <div class="form-left-to-w3l">
+                <div class="col-md-12 input-group" id="userpwd-wrapper">
+                    <input class="form-control" id="password" placeholder="password" type="password" value="">
+                </div>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip" id="userpwd-null-tip">密码不能为空</span>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip" id="userpwd-error-tip">用户名或密码不正确</span>
+                <span class="form-control-plaintext pl-4 pr-4 text-left tip" id="error-tip">登录失败</span>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <button class="form-control btn btn-primary" id="login" style="width: 50%">登录</button>
+            </div>
+        </div>
+        <br><br>
+        <div class="row m-0">
+            <div class="col-md-12 mt-4 text-center">
+                <a class="text-white" href="register.html">
+                    <i class="fas fa-user"></i>
+                    <span>新用户注册</span>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
+<footer class="bottem-wthree-footer">
+    <p>网商 &copy; 2019.xxxxx.</p>
+</footer>
 </body>
-
-<script>
-    //登录
-    $('#login').click(function () {
-        $.ajax({
-            url: "http://localhost:8080/login",
-            type: "post",
-            dataType: "json",
-            async: true,
-            data: {
-                name: $("#username").val(),
-                password: $("#password").val(),
-            },
-            success: function (data) {
-                if (data.message == "true") {
-                    window.location.href = "index.html";
-                } else {
-                    window.location.href = "#";
-                    alert("用户名或密码有误,请重新输入");
-                }
-            },
-            error: function () {
-                alert("系统出错,请重试");
-            },
-        })
-    });
-</script>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/awesome.js"></script>
+<script src="js/login-script.js"></script>
 </html>
-

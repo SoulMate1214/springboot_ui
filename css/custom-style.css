@@ -1,0 +1,153 @@
+.bg-salmon {
+    background-color: #989898 !important;
+}
+
+.font-size-25 {
+    font-size: 25px !important;
+}
+
+.caret {
+    position: absolute;
+    margin-left: -10px;
+    left: 50%;
+    top: -10px;
+    border-bottom: 10px solid white;
+    border-top: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+}
+.w-450 {
+    width: 450px !important;
+}
+
+.tip {
+    display: none;
+    color: red;
+}
+
+.nav-pills, .navbar-brand {
+    height: 48px !important;
+}
+
+.navbar-brand:hover {
+    background: #9abce6;
+}
+
+.navbar-brand .navbar-logo:before {
+    content: url("../img/logo_32x32.jpg");
+}
+
+.navbar-title {
+    left: 48px;
+    top: 0;
+}
+
+.topbar-user-avatar {
+    width: 32px;
+    height: 32px;
+}
+
+.list-inline-item:not(:last-child) {
+    margin-right: 0;
+}
+
+.border-left, .dropdown-divider {
+    border-color: hsla(0, 0%, 100%, .1) !important;
+}
+
+.dropdown-item:hover {
+    background-color: transparent;
+}
+
+.nav-link:hover {
+    color: cyan;
+}
+
+.fixed-left {
+    top: 48px;
+    bottom: 0;
+    right: auto;
+    left: 0;
+    width: 48px;
+    z-index: 1030;
+}
+
+.navbar-side {
+    align-items: baseline;
+}
+
+.navbar-side .navbar-side-wrapper {
+    z-index: 999;
+    width: 48px;
+    top: 0;
+    bottom: 0;
+    -webkit-transition: all .3s cubic-bezier(0, 0, .2, 1);
+    transition: all .3s cubic-bezier(0, 0, .2, 1);
+}
+
+.navbar-side .navbar-side-wrapper:hover {
+    cursor: pointer;
+    width: 230px;
+    -webkit-transition-delay: .3s;
+    transition-delay: .3s;
+}
+
+.module-item {
+    font-size: 16px;
+    -webkit-transition: all .2s ease-out 0s;
+    transition: all .2s ease-out 0s;
+    height: 40px;
+    line-height: 40px;
+}
+
+.module-item:hover {
+    background-color: #9abce6;
+}
+
+.module-item-icon-box {
+    width: 48px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.module-item-icon-box i {
+    font-size: 16px;
+}
+
+.module-item-name {
+    width: 178px;
+    text-overflow: ellipsis;
+}
+
+.sidebar .module-item:hover .module-item-name {
+    color: cyan;
+}
+
+.module-body {
+    left: 0;
+    right: 0;
+    top: 48px;
+    bottom: 0;
+    z-index: 100;
+}
+
+.btn-mini {
+    font-size: 8px;
+}
+
+.min-width-1300 {
+    min-width: 1300px;
+}
+
+.navbar-nav .active {
+    background-color: #6f8baf !important;
+}
+
+.topLi{
+    margin-right: 300px;
+}
+.pageinfo .active {
+    color: #FFF;
+    background: #337ab7;
+    border-color: #337ab7;
+}
