@@ -54,8 +54,16 @@
       <option name="presentableId" value="Default" />
       <updated>1575704058256</updated>
       <workItem from="1575704059596" duration="151000" />
-      <workItem from="1575704213831" duration="265000" />
+      <workItem from="1575704213831" duration="510000" />
     </task>
+    <task id="LOCAL-00001" summary="1">
+      <created>1575704723020</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1575704723020</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -73,5 +81,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1" />
   </component>
 </project>
