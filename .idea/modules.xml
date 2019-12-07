@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Bootstrap_admin.iml" filepath="$PROJECT_DIR$/.idea/Bootstrap_admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/springboot_ui.iml" filepath="$PROJECT_DIR$/.idea/springboot_ui.iml" />
     </modules>
   </component>
 </project>
